@@ -17,7 +17,6 @@ export default function SidebarItem({
     }) {
 
     const { activeChatIndex, setActiveChatIndex } = useGlobalChatContext()
-    console.log("Active chat index: ", activeChatIndex)
 
     return (
         <button

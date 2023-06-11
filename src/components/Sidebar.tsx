@@ -9,7 +9,6 @@ import SidebarItem from './SidebarItem'
 
 export default function Sidebar() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
-  const [activeChatIndex, setActiveChatIndex] = useState(undefined)
 
   const handleSidebarClose = () => setIsSidebarCollapsed(isSidebarCollapsed => !isSidebarCollapsed)
  
@@ -35,8 +34,6 @@ export default function Sidebar() {
           return (
             <SidebarItem 
               key={index}
-              activeChatIndex={activeChatIndex}
-              setActiveChatIndex={setActiveChatIndex}
               index={index}
               data={data}
               isSidebarCollapsed={isSidebarCollapsed}

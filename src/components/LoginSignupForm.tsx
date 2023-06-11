@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { SyntheticEvent } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import accordIcon from '/public/icon.svg'
 
@@ -14,14 +14,13 @@ import axios from 'axios';
 
 const LoginSignupForm = () => {
     const router = usePathname()
-    const mappedInput = router === '/login' ? loginData : signupData
+    const inputFieldsList = router === '/login' ? loginData : signupData
     
     const { register, handleSubmit, formState: { errors }} = useForm();
 
-    const onSubmit = (data: any, event: SyntheticEvent) =>{
+    const onSubmit = (data: any, event: any) =>{
         event.preventDefault()
 
-        console.log("Data: ", data)
         axios.post(
             `${process.env.API_URL}/api/users/login`,
             data
@@ -62,9 +61,10 @@ const LoginSignupForm = () => {
                         <h2 className='text-slate-500 text-base'>Register your account</h2>
                     </div>
                 </div>
-                {mappedInput.map((data: any) => {
+                {inputFieldsList.map((data: any, index: number) => {
                     return (
                         <FormInput 
+                            key={index}
                             label={data.label} 
                             register={register} 
                             errors={errors} 
