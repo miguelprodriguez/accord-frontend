@@ -73,10 +73,7 @@ const LoginSignupForm = () => {
                         />
                     )})
                 }
-            <button 
-                className='hover:drop-shadow-xl rounded-xl text-white bg-violet-700 p-4' 
-                type="submit"
-            >
+            <button className='hover:drop-shadow-xl rounded-xl text-white bg-violet-700 p-4'>
                  {router === '/login' ? 'Login' : 'Signup'}
             </button>
             </div>

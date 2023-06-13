@@ -12,7 +12,10 @@ const loginData = [
     }, 
     {
         label: 'Password', 
-        inputType: 'password'
+        inputType: 'password', 
+        validation: {
+            required: "Password is required",
+        },
     }
 ]
 
