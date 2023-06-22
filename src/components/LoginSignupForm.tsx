@@ -14,7 +14,8 @@ import axios from 'axios';
 
 const LoginSignupForm = () => {
     const router = usePathname()
-    const inputFieldsList = router === '/login' ? loginData : signupData
+    const isLoginPage = router === '/login'
+    const inputFieldsList =  isLoginPage ? loginData : signupData
     
     const { register, handleSubmit, formState: { errors }} = useForm();
 
@@ -22,7 +23,7 @@ const LoginSignupForm = () => {
         event.preventDefault()
 
         axios.post(
-            `${process.env.API_URL}/api/users/login`,
+            `${process.env.API_URL}/api/users/${isLoginPage ? 'login' : 'signup' }`,
             data
         ).then(response => {
             console.log("Response: ", response)
