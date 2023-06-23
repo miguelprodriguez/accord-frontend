@@ -21,9 +21,8 @@ const LoginSignupForm = () => {
 
     const onSubmit = (data: any, event: any) =>{
         event.preventDefault()
-
         axios.post(
-            `${process.env.API_URL}/api/users/${isLoginPage ? 'login' : 'signup' }`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${isLoginPage ? 'login' : 'signup' }`,
             data
         ).then(response => {
             console.log("Response: ", response)
