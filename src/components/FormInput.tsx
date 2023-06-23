@@ -49,7 +49,7 @@ const FormInput = (
                     type={handleInputType()}
                 />
                 {inputType === 'password' && 
-                    <button onClick={handlePasswordToggle}>
+                    <button type="button" onClick={handlePasswordToggle}>
                         {
                             <Image 
                                 src={isPasswordShown ? eyeSlashIcon : eyeIcon} 
