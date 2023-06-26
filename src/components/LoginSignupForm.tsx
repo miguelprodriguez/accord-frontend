@@ -15,15 +15,17 @@ import axios from 'axios';
 const LoginSignupForm = () => {
     const router = usePathname()
     const isLoginPage = router === '/login'
-    const inputFieldsList =  isLoginPage ? loginData : signupData
-    
-    const { register, handleSubmit, formState: { errors }} = useForm();
+    const inputFieldsList = isLoginPage ? loginData : signupData
 
-    const onSubmit = (data: any, event: any) =>{
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = (data: any, event: any) => {
         event.preventDefault()
+
         axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${isLoginPage ? 'login' : 'signup' }`,
-            data
+            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${isLoginPage ? 'login' : 'signup'}`,
+            data,
+            { withCredentials: true }
         ).then(response => {
             console.log("Response: ", response)
         }).catch(error => {
@@ -33,24 +35,24 @@ const LoginSignupForm = () => {
     const onError = (errors: any) => console.log("Errors: ", errors);
 
     return (
-        <form 
-            className='flex flex-col p-4 h-full justify-center' 
+        <form
+            className='flex flex-col p-4 h-full justify-center'
             onSubmit={handleSubmit(onSubmit, onError)}
         >
             <div className="ml-auto flex gap-2 items-center">
                 <span className='text-slate-500'>
                     {router === '/login' ? "Don't have an account" : 'Already have an account?'}
                 </span>
-                <Link 
-                    className='rounded-lg text-slate-500 border-2 border-gray p-2' 
-                    href={`${router === '/login' ? '/signup': '/login'}`}
+                <Link
+                    className='rounded-lg text-slate-500 border-2 border-gray p-2'
+                    href={`${router === '/login' ? '/signup' : '/login'}`}
                 >
-                   {router === '/login' ? 'Signup': 'Login'}
+                    {router === '/login' ? 'Signup' : 'Login'}
                 </Link>
             </div>
             <div className="flex-1 flex flex-col justify-center">
                 <div className='flex items-center pb-5 gap-5'>
-                    <Image 
+                    <Image
                         src={accordIcon}
                         alt='Accord icon'
                         width={100}
@@ -63,19 +65,20 @@ const LoginSignupForm = () => {
                 </div>
                 {inputFieldsList.map((data: any, index: number) => {
                     return (
-                        <FormInput 
+                        <FormInput
                             key={index}
-                            label={data.label} 
-                            register={register} 
-                            errors={errors} 
+                            label={data.label}
+                            register={register}
+                            errors={errors}
                             validation={data.validation}
                             inputType={data.inputType}
                         />
-                    )})
+                    )
+                })
                 }
-            <button className='hover:drop-shadow-xl rounded-xl text-white bg-violet-700 p-4'>
-                 {router === '/login' ? 'Login' : 'Signup'}
-            </button>
+                <button className='hover:drop-shadow-xl rounded-xl text-white bg-violet-700 p-4'>
+                    {router === '/login' ? 'Login' : 'Signup'}
+                </button>
             </div>
         </form>
     )
