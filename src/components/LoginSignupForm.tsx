@@ -29,8 +29,7 @@ const LoginSignupForm = () => {
             `${process.env.NEXT_PUBLIC_API_URL}/api/users/${isLoginPage ? 'login' : 'signup'}`,
             data,
             { withCredentials: true } // for setting cookies
-        ).then(response => {
-            console.log("Response: ", response)
+        ).then(() => {
             router.push('/')
         }).catch(error => {
             setErrorMessage(error.response.data.message)
