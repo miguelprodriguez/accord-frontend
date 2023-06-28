@@ -3,9 +3,9 @@ const signupData = [
         label: 'Username',
         validation: { required: "Username is required", maxLength: 20 },
         inputType: 'text'
-    }, 
+    },
     {
-        label: 'Email', 
+        label: 'Email',
         validation: {
             required: "Email is required",
             pattern: {
@@ -14,14 +14,18 @@ const signupData = [
             }
         },
         inputType: 'text'
-    }, 
+    },
     {
-        label: 'Password', 
-        validation: { 
+        label: 'Password',
+        validation: {
             required: "Password is required",
             minLength: {
-            value: 5,
-            message: "Min length is 5"
+                value: 4,
+                message: "Your password must contain between 4 and 60 characters."
+            },
+            maxLength: {
+                value: 60, 
+                message: "Your password must contain between 4 and 60 characters."
             }
         },
         inputType: 'password'
