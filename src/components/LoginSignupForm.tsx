@@ -33,7 +33,6 @@ const LoginSignupForm = () => {
             console.log("Response: ", response)
             router.push('/')
         }).catch(error => {
-            console.log("Error: ", error)
             setErrorMessage(error.response.data.message)
         })
     }
