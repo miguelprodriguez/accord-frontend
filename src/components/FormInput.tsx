@@ -2,21 +2,15 @@ import Image from "next/image"
 import { SyntheticEvent, useState } from "react"
 import eyeIcon from '/public/eye.svg'
 import eyeSlashIcon from '/public/eye-slash.svg'
+import { FormInputProps } from "@/types/FormInputProps"
 
-const FormInput = (
-    {
-        label, 
-        register, 
-        errors,
-        validation,
-        inputType
-    }: {
-        label: string,
-        register: any,
-        errors: any,
-        validation: any, 
-        inputType: string
-    }) => {
+const FormInput = ({
+    label,
+    register,
+    errors,
+    validation,
+    inputType
+}: FormInputProps) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false)
     const loweredCaseLabel = label.toLowerCase()
 
@@ -35,32 +29,32 @@ const FormInput = (
             <label className='pb-2 font-semibold'>{label}</label>
             <div className={
                 `
-                    border-2 ${errors[loweredCaseLabel] ? 
-                        'border-red-700' :
-                        'border-slate-500'
-                    } 
+                    border-2 ${errors[loweredCaseLabel] ?
+                    'border-red-700' :
+                    'border-slate-500'
+                } 
                     focus-within:border-violet-700 flex rounded-lg gap-2 p-2
                 `
             }>
-                <input 
+                <input
                     className='outline-none w-full'
-                    {...register(loweredCaseLabel, validation)} 
-                    aria-invalid={errors[loweredCaseLabel]} 
+                    {...register(loweredCaseLabel, validation)}
+                    aria-invalid={errors[loweredCaseLabel]}
                     type={handleInputType()}
                 />
-                {inputType === 'password' && 
+                {inputType === 'password' &&
                     <button type="button" onClick={handlePasswordToggle}>
                         {
-                            <Image 
-                                src={isPasswordShown ? eyeSlashIcon : eyeIcon} 
-                                alt={''} 
+                            <Image
+                                src={isPasswordShown ? eyeSlashIcon : eyeIcon}
+                                alt={''}
                             />
                         }
                     </button>
                 }
             </div>
-             {
-                errors[loweredCaseLabel] && 
+            {
+                errors[loweredCaseLabel] &&
                 <p className='text-red-700 text-sm' role="alert">
                     {errors[loweredCaseLabel].message}
                 </p>

@@ -1,5 +1,6 @@
 import { useGlobalChatContext } from '@/app/context/store'
 import truncateText from '@/helpers/truncateText'
+import { SidebarItemProps } from '@/types/SidebarItemProps'
 import Image from 'next/image'
 import React from 'react'
 
@@ -9,18 +10,13 @@ export default function SidebarItem({
     index,
     data,
     isSidebarCollapsed
-    }: 
-    {
-        index: any, 
-        data: any,
-        isSidebarCollapsed: boolean
-    }) {
-
+}: SidebarItemProps) {
+    
     const { activeChatIndex, setActiveChatIndex } = useGlobalChatContext()
 
     return (
         <button
-            key={index} 
+            key={index}
             onClick={() => setActiveChatIndex(index)}
             className={`
                 flex items-center gap-5 p-2.5
@@ -30,17 +26,17 @@ export default function SidebarItem({
             }
         >
             <div className="w-12 h-12 relative">
-                <Image 
+                <Image
                     src={data.imageURL}
                     alt={data.name}
                     fill
                     className='object-cover rounded-[50%]'
                 />
             </div>
-            { isSidebarCollapsed &&
+            {isSidebarCollapsed &&
                 <div className='text-left'>
-                <h2 className='font-bold'>{data.name}</h2>
-                <p className='text-gray-500'>{truncateText(data.lastMessage, MESSAGE_LIMIT_PREVIEW)}</p>
+                    <h2 className='font-bold'>{data.name}</h2>
+                    <p className='text-gray-500'>{truncateText(data.lastMessage, MESSAGE_LIMIT_PREVIEW)}</p>
                 </div>
             }
         </button>
