@@ -3,21 +3,17 @@ import Image from 'next/image';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import accordIcon from '/public/icon.svg'
-
 import Link from 'next/link';
-import signupData from '@/data/signupData';
-import FormInput from './FormInput';
+import FormInput from './FormField';
 import { usePathname, useRouter } from 'next/navigation';
-import loginData from '@/data/loginData';
 import axios from 'axios';
 import ErrorMessage from './ErrorMessage';
+import { FormProps } from '@/types/FormProps';
 
-
-const LoginSignupForm = () => {
+const Form = ({ fields }: FormProps) => {
     const router = useRouter()
     const pathname = usePathname()
     const isLoginPage = pathname === '/login'
-    const inputFieldsList = isLoginPage ? loginData : signupData
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState('')
@@ -44,13 +40,13 @@ const LoginSignupForm = () => {
         >
             <div className="ml-auto flex gap-2 items-center">
                 <span className='text-slate-500'>
-                    {pathname === '/login' ? "Don't have an account" : 'Already have an account?'}
+                    {isLoginPage ? "Don't have an account" : 'Already have an account?'}
                 </span>
                 <Link
                     className='rounded-lg text-slate-500 border-2 border-gray p-2'
-                    href={`${pathname === '/login' ? '/signup' : '/login'}`}
+                    href={`${isLoginPage ? '/signup' : '/login'}`}
                 >
-                    {pathname === '/login' ? 'Signup' : 'Login'}
+                    {isLoginPage ? 'Signup' : 'Login'}
                 </Link>
             </div>
             {errorMessage !== '' && <ErrorMessage text={errorMessage} />}
@@ -67,7 +63,7 @@ const LoginSignupForm = () => {
                         <h2 className='text-slate-500 text-base'>Register your account</h2>
                     </div>
                 </div>
-                {inputFieldsList.map((data: any, index: number) => {
+                {fields.map((data: any, index: number) => {
                     return (
                         <FormInput
                             key={index}
@@ -81,11 +77,11 @@ const LoginSignupForm = () => {
                 })
                 }
                 <button className='hover:drop-shadow-xl rounded-xl text-white bg-violet-700 p-4'>
-                    {pathname === '/login' ? 'Login' : 'Signup'}
+                    {isLoginPage ? 'Login' : 'Signup'}
                 </button>
             </div>
         </form>
     )
 }
 
-export default LoginSignupForm
+export default Form

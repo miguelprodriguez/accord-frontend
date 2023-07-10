@@ -2,15 +2,15 @@ import Image from "next/image"
 import { SyntheticEvent, useState } from "react"
 import eyeIcon from '/public/eye.svg'
 import eyeSlashIcon from '/public/eye-slash.svg'
-import { FormInputProps } from "@/types/FormInputProps"
+import { FormFieldProps } from "@/types/FormFieldProps"
 
-const FormInput = ({
+const FormField = ({
     label,
     register,
     errors,
     validation,
     inputType
-}: FormInputProps) => {
+}: FormFieldProps) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false)
     const loweredCaseLabel = label.toLowerCase()
 
@@ -63,4 +63,4 @@ const FormInput = ({
     )
 }
 
-export default FormInput
+export default FormField

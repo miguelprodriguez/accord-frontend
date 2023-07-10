@@ -1,12 +1,10 @@
+'use client';
 import FormContainer from '@/components/FormContainer'
+import loginData from '@/data/loginData'
 import React from 'react'
 
 function Login() {
-  return (
-    <div className="flex justify-center items-center h-full px-8">
-      <FormContainer />
-    </div>
-  )
+  return <FormContainer fields={loginData} />
 }
 
 export default Login

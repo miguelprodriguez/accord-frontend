@@ -1,9 +1,7 @@
+'use client';
 import FormContainer from "@/components/FormContainer";
+import signupData from "@/data/signupData";
 
 export default function Signup() {
-  return (
-    <div className="flex justify-center items-center h-full px-8">
-      <FormContainer />
-    </div>
-  )
+  return <FormContainer fields={signupData} />
 }
