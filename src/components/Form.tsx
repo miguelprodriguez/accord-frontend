@@ -21,8 +21,9 @@ const Form = ({ fields }: FormProps) => {
     const onSubmit = (data: any, event: any) => {
         event.preventDefault()
 
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/users/${isLoginPage ? 'login' : 'signup'}`
         axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${isLoginPage ? 'login' : 'signup'}`,
+            url,
             data,
             { withCredentials: true } // for setting cookies
         ).then(() => {
