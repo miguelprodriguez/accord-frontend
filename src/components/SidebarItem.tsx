@@ -3,6 +3,7 @@ import truncateText from '@/helpers/truncateText'
 import { SidebarItemProps } from '@/types/SidebarItemProps'
 import Image from 'next/image'
 import React from 'react'
+import OnlineStatus from './OnlineStatus'
 
 const MESSAGE_LIMIT_PREVIEW = 27
 
@@ -22,8 +23,8 @@ export default function SidebarItem({
                 flex items-center gap-5 p-2.5
                 ${isSidebarCollapsed ? 'justify-start' : 'justify-center'}  
                 ${activeChatIndex === index ? 'bg-slate-200 ' : ''}
-                hover:bg-slate-200 rounded-xl`
-            }
+                hover:bg-slate-200 rounded-xl
+            `}
         >
             <div className="w-12 h-12 relative">
                 <Image
@@ -32,6 +33,7 @@ export default function SidebarItem({
                     fill
                     className='object-cover rounded-[50%]'
                 />
+                <OnlineStatus isOnline={data.isOnline`1`} />
             </div>
             {isSidebarCollapsed &&
                 <div className='text-left'>
