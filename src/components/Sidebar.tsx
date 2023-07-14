@@ -1,7 +1,6 @@
 "use client"
 
 import messagesData from '@/data/messagesData'
-import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import addFriendIcon from '/public/add-friend.svg'
 import chevronLeftIcon from '/public/chevron-left.svg'
