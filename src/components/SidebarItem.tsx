@@ -11,7 +11,7 @@ export default function SidebarItem({
     data,
     isSidebarCollapsed
 }: SidebarItemProps) {
-    
+
     const { activeChatIndex, setActiveChatIndex } = useGlobalChatContext()
 
     return (
