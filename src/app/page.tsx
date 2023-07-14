@@ -1,5 +1,5 @@
 'use client'
-import ChatWindow from "@/components/ChatWindow";
+import Chat from "@/components/Chat";
 import Sidebar from "@/components/Sidebar";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,10 @@ export default function Home() {
 
   useEffect(() => {
     const loginUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/users/login`
-    axios.get(loginUrl, { withCredentials: true })
+    axios.get(
+      loginUrl,
+      { withCredentials: true }
+    )
       .then(() => {
         setIsUserLoggedIn(true)
       })
@@ -28,7 +31,7 @@ export default function Home() {
           : (
             <div className="flex h-full">
               <Sidebar />
-              <ChatWindow />
+              <Chat />
             </div>
           )
       }
