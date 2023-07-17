@@ -21,7 +21,7 @@ export default function Home() {
       .catch(() => {
         router.push("/login")
       })
-  }, [])
+  }, [router])
 
   return (
     <>

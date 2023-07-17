@@ -2,8 +2,8 @@ export interface FormFieldProps {
     label: string;
     validation: FieldsValidation;
     inputType: string;
-    register?: any;
-    errors?: any
+    register: any;
+    errors: any
 }
 
 interface FieldsValidation {
