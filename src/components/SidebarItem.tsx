@@ -33,7 +33,7 @@ export default function SidebarItem({
                     fill
                     className='object-cover rounded-[50%]'
                 />
-                <OnlineStatus isOnline={data.isOnline`1`} />
+                <OnlineStatus isOnline={data.isOnline} />
             </div>
             {isSidebarCollapsed &&
                 <div className='text-left'>
