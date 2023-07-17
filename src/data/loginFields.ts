@@ -1,6 +1,6 @@
-const loginData = [
+const loginFields = [
     {
-        label: 'Email', 
+        label: 'Email',
         validation: {
             required: "Email is required",
             pattern: {
@@ -9,14 +9,14 @@ const loginData = [
             }
         },
         inputType: 'text'
-    }, 
+    },
     {
-        label: 'Password', 
-        inputType: 'password', 
+        label: 'Password',
+        inputType: 'password',
         validation: {
             required: "Password is required",
         },
     }
 ]
 
-export default loginData
+export default loginFields

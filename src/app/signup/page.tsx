@@ -1,7 +1,7 @@
 'use client';
 import FormContainer from "@/components/FormContainer";
-import signupData from "@/data/signupData";
+import signupFields from "@/data/signupFields";
 
 export default function Signup() {
-  return <FormContainer fields={signupData} />
+  return <FormContainer fields={signupFields} />
 }

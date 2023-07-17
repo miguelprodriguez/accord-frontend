@@ -1,10 +1,10 @@
 'use client';
 import FormContainer from '@/components/FormContainer'
-import loginData from '@/data/loginData'
+import loginFields from '@/data/loginFields'
 import React from 'react'
 
 function Login() {
-  return <FormContainer fields={loginData} />
+  return <FormContainer fields={loginFields} />
 }
 
 export default Login

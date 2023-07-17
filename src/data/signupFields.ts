@@ -1,4 +1,4 @@
-const signupData = [
+const signupFields = [
     {
         label: 'Username',
         validation: {
@@ -37,4 +37,4 @@ const signupData = [
     }
 ]
 
-export default signupData
+export default signupFields

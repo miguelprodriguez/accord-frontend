@@ -4,11 +4,11 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import accordIcon from '/public/icon.svg'
 import Link from 'next/link';
-import FormInput from './FormField';
 import { usePathname, useRouter } from 'next/navigation';
 import axios from 'axios';
 import ErrorMessage from './ErrorMessage';
 import { FormProps } from '@/types/FormProps';
+import FormField from './FormField';
 
 const Form = ({ fields }: FormProps) => {
     const router = useRouter()
@@ -64,15 +64,15 @@ const Form = ({ fields }: FormProps) => {
                         <h2 className='text-slate-500 text-base'>Register your account</h2>
                     </div>
                 </div>
-                {fields.map((data: any, index: number) => {
+                {fields.map((field: any, index: number) => {
                     return (
-                        <FormInput
+                        <FormField
                             key={index}
-                            label={data.label}
+                            label={field.label}
                             register={register}
                             errors={errors}
-                            validation={data.validation}
-                            inputType={data.inputType}
+                            validation={field.validation}
+                            inputType={field.inputType}
                         />
                     )
                 })
