@@ -1,10 +1,11 @@
 const loginFields = [
     {
-        label: 'Username',
+        label: 'Email',
         validation: {
-            required: "Username is required", maxLength: {
-                value: 20,
-                message: "Your username is too long."
+            required: "Email is required",
+            pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Entered value does not match email format"
             }
         },
         inputType: 'text'

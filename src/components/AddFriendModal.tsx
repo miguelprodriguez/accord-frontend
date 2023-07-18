@@ -1,16 +1,11 @@
-import React, { MouseEventHandler } from 'react'
+import React from 'react'
 import Modal from 'react-modal'
 import CloseIcon from '/public/close.svg'
 import SquareHoverButton from './SquareHoverButton'
 import addFriendField from '@/data/addFriendField'
 import FormField from './FormField'
 import { useForm } from 'react-hook-form'
-
-interface AddFriendModalProps {
-    isOpen: boolean,
-    contentLabel?: string,
-    closeModal: MouseEventHandler<HTMLButtonElement>,
-}
+import { AddFriendModalProps } from '@/types/AddFriendModalProps'
 
 const customStyles = {
     content: {
