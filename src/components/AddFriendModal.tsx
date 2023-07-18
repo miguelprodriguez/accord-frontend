@@ -6,6 +6,7 @@ import addFriendField from '@/data/addFriendField'
 import FormField from './FormField'
 import { useForm } from 'react-hook-form'
 import { AddFriendModalProps } from '@/types/AddFriendModalProps'
+import { socket } from '@/socket'
 
 const customStyles = {
     content: {
@@ -24,9 +25,21 @@ const AddFriendModal = (
     { isOpen, contentLabel, closeModal }: AddFriendModalProps
 ) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, getValues, handleSubmit, formState: { errors }, setError, reset } = useForm();
 
-    const onSubmit = () => console.log("Submitted")
+    const handleClose = () => {
+        closeModal()
+        reset()
+    }
+
+    const onSubmit = () => {
+        const friendsUsername = getValues('friendsusername')
+
+        socket.emit('add_friend', friendsUsername, ({ errorMessage, done }: any) => {
+            if (done) return closeModal()
+            setError('friendsusername', { message: errorMessage })
+        })
+    }
     const onError = () => console.log("Error")
 
     return (
@@ -40,7 +53,7 @@ const AddFriendModal = (
                 <div className='font-black justify-between items-center text-lg flex'>
                     <h2>Add Friend</h2>
                     <SquareHoverButton
-                        onClick={closeModal}
+                        onClick={() => handleClose()}
                         icon={CloseIcon}
                         alt={'Close modal'}
                         buttonClassName='ml-auto block'

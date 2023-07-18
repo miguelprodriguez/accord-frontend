@@ -12,7 +12,7 @@ const FormField = ({
     inputType
 }: FormFieldProps) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false)
-    const loweredCaseLabel = label.toLowerCase()
+    const loweredCaseLabel = label.replace(/[^A-Z0-9]/ig, "").toLowerCase()
 
     const handleInputType = () => {
         if (inputType === 'password' && !isPasswordShown) return 'password'

@@ -1,5 +1,5 @@
 const addFriendField = {
-    label: "Username of your friend",
+    label: "Friend's username",
     validation: {
         required: "Username is required", maxLength: {
             value: 20,
