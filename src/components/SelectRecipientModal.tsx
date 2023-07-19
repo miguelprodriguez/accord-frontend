@@ -2,11 +2,8 @@ import React from 'react'
 import Modal from 'react-modal'
 import CloseIcon from '/public/close.svg'
 import SquareHoverButton from './SquareHoverButton'
-import addFriendField from '@/data/addFriendField'
-import FormField from './FormField'
-import { useForm } from 'react-hook-form'
 import { SelectRecipientModalProps } from '@/types/SelectRecipientModalProps'
-import { socket } from '@/socket'
+import AutoSuggestInput from './AutoSuggestInput'
 
 const customStyles = {
     content: {
@@ -16,6 +13,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         width: '20%',
+        overflow: 'none',
         transform: 'translate(-50%, -50%)',
         borderRadius: '8px'
     },
@@ -24,24 +22,6 @@ const customStyles = {
 const SelectRecipientModal = (
     { isOpen, contentLabel, closeModal }: SelectRecipientModalProps
 ) => {
-
-    const { register, getValues, handleSubmit, formState: { errors }, setError, reset } = useForm();
-
-    const handleClose = () => {
-        closeModal()
-        reset()
-    }
-
-    const onSubmit = () => {
-        const friendsUsername = getValues('friendsusername')
-
-        socket.emit('add_friend', friendsUsername, ({ errorMessage, done }: any) => {
-            if (done) return closeModal()
-            setError('friendsusername', { message: errorMessage })
-        })
-    }
-    const onError = () => console.log("Error")
-
     return (
         <>
             <Modal
@@ -53,28 +33,13 @@ const SelectRecipientModal = (
                 <div className='font-black justify-between items-center text-lg flex'>
                     <h2>Send to</h2>
                     <SquareHoverButton
-                        onClick={() => handleClose()}
+                        onClick={() => closeModal()}
                         icon={CloseIcon}
                         alt={'Close modal'}
                         buttonClassName='ml-auto block'
                     />
                 </div>
-                <form
-                    className='py-2'
-                    onSubmit={handleSubmit(onSubmit, onError)}
-                >
-                    <FormField
-                        label={addFriendField.label}
-                        register={register}
-                        errors={errors}
-                        validation={addFriendField.validation}
-                        inputType={addFriendField.inputType}
-                    />
-
-                    <button className='hover:drop-shadow-xl rounded-xl text-white bg-violet-700 p-4'>
-                        Select
-                    </button>
-                </form>
+                <AutoSuggestInput />
             </Modal>
         </>
     )
