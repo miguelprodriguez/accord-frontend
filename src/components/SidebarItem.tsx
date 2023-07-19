@@ -9,9 +9,11 @@ const MESSAGE_LIMIT_PREVIEW = 27
 
 export default function SidebarItem({
     index,
-    data,
+    chat,
     isSidebarCollapsed
 }: SidebarItemProps) {
+    const chatMate = chat.participants.find((participant: any) => participant.userId !== "521d4a7e-294c-4036-8ba6-483de7b0b4e2")
+    console.log("Chat: ", chat)
 
     const { activeChatIndex, setActiveChatIndex } = useGlobalChatContext()
 
@@ -28,17 +30,17 @@ export default function SidebarItem({
         >
             <div className="w-12 h-12 relative">
                 <Image
-                    src={data.imageURL}
-                    alt={data.name}
+                    src={chatMate.image}
+                    alt={chatMate.username}
                     fill
                     className='object-cover rounded-[50%]'
                 />
-                <OnlineStatus isOnline={data.isOnline} />
+                {/* <OnlineStatus isOnline={data.isOnline} /> */}
             </div>
             {isSidebarCollapsed &&
                 <div className='text-left'>
-                    <h2 className='font-bold'>{data.name}</h2>
-                    <p className='text-gray-500'>{truncateText(data.lastMessage, MESSAGE_LIMIT_PREVIEW)}</p>
+                    <h2 className='font-bold'>{chatMate.username}</h2>
+                    <p className='text-gray-500'>{truncateText(chat.lastMessage.content, MESSAGE_LIMIT_PREVIEW)}</p>
                 </div>
             }
         </button>

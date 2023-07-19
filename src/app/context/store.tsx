@@ -15,7 +15,7 @@ const ChatContext = createContext<ChatContextProps>({
 // 2. Provide the context - check layout.txt for NextJS 
 export const GlobalChatProvider = ({ children }: any) => {
     const [activeChatIndex, setActiveChatIndex] = useState<number>(0)
-    console.log("Active chat Index: ", activeChatIndex)
+    // console.log("Active chat Index: ", activeChatIndex)
 
     return (
         <ChatContext.Provider value={{ activeChatIndex, setActiveChatIndex }}>

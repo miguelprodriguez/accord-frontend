@@ -9,7 +9,7 @@ const AutoSuggestInput = () => {
         const fetchSuggestions = async () => {
             try {
                 const queryLink = `${process.env.NEXT_PUBLIC_API_URL}/api/users?username=${inputValue}`
-                const response = await axios.get(queryLink);
+                const response = await axios.get(queryLink, { withCredentials: true });
 
                 const suggestionsData = response.data;
                 setSuggestions(suggestionsData);

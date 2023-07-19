@@ -8,8 +8,11 @@ import useIsMobile from '@/hooks/useIsMobile'
 import SidebarItem from './SidebarItem'
 import SquareHoverButton from './SquareHoverButton'
 import SelectRecipientModal from './SelectRecipientModal'
+import axios from 'axios'
 
 export default function Sidebar() {
+
+  const [chatsList, setChatsList] = useState([])
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -23,6 +26,21 @@ export default function Sidebar() {
     setIsSidebarCollapsed(true)
   }, [isMobile])
 
+  useEffect(() => {
+    const getChatsList = async () => {
+      try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/chats`
+        const response = await axios.get(url, { withCredentials: true })
+        console.log("Response: ", response.data)
+        setChatsList(response.data)
+      } catch (error) {
+        console.log("Error: ", error)
+      }
+    }
+    getChatsList()
+  }, [])
+
+  console.log("Chats list: ", chatsList)
 
   return (
     <div className={`flex flex-col border-2 border-r-gray-900 h-full p-2 overflow-y-scroll`}>
@@ -47,12 +65,12 @@ export default function Sidebar() {
         contentLabel="Example Modal"
         closeModal={closeModal}
       />
-      {messagesData.map((data, index) => {
+      {chatsList.map((chat, index) => {
         return (
           <SidebarItem
             key={index}
             index={index}
-            data={data}
+            chat={chat}
             isSidebarCollapsed={isSidebarCollapsed}
           />
         )

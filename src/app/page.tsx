@@ -5,12 +5,11 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { socket } from '../socket'
+import { NextPage } from "next";
 
-export default function Home() {
+export default function Home(): NextPage {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<any>(null)
   // const [isConnected, setIsConnected] = useState(socket.connected)
-
-  console.log("Socket: ", socket)
 
   useEffect(() => {
     socket.connect()
@@ -37,17 +36,17 @@ export default function Home() {
   const router = useRouter()
 
   useEffect(() => {
-    const loginUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/users/login`
-    axios.get(
-      loginUrl,
-      { withCredentials: true }
-    )
-      .then(() => {
+    const checkIfLoggedIn = async () => {
+      try {
+        const loginUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/users/login`
+        await axios.get(loginUrl, { withCredentials: true })
         setIsUserLoggedIn(true)
-      })
-      .catch(() => {
-        router.push("/login")
-      })
+      } catch (error) {
+        router.push('/login')
+      }
+    }
+
+    checkIfLoggedIn()
   }, [router])
 
   return (

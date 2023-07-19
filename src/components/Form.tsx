@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import accordIcon from '/public/icon.svg'
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import ErrorMessage from './ErrorMessage';
 import { FormProps } from '@/types/FormProps';
 import FormField from './FormField';
@@ -21,16 +21,18 @@ const Form = ({ fields }: FormProps) => {
     const onSubmit = (data: any, event: any) => {
         event.preventDefault()
 
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/users/${isLoginPage ? 'login' : 'signup'}`
-        axios.post(
-            url,
-            data,
-            { withCredentials: true } // for setting cookies
-        ).then(() => {
-            router.push('/')
-        }).catch(error => {
-            setErrorMessage(error.response.data.message)
-        })
+        const loginOrSignup = async () => {
+            try {
+                const url = `${process.env.NEXT_PUBLIC_API_URL}/api/users/${isLoginPage ? 'login' : 'signup'}`
+                await axios.post(url, data, { withCredentials: true })
+                router.push('/')
+            } catch (error) {
+                const axiosError = error as AxiosError<{ message: string }>;
+                setErrorMessage(axiosError.response?.data.message || 'An error occurred.');
+            }
+
+        }
+        loginOrSignup()
     }
     const onError = (errors: any) => console.log("Errors: ", errors);
 
