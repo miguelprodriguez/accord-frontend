@@ -5,7 +5,7 @@ import SquareHoverButton from './SquareHoverButton'
 import addFriendField from '@/data/addFriendField'
 import FormField from './FormField'
 import { useForm } from 'react-hook-form'
-import { AddFriendModalProps } from '@/types/AddFriendModalProps'
+import { SelectRecipientModalProps } from '@/types/SelectRecipientModalProps'
 import { socket } from '@/socket'
 
 const customStyles = {
@@ -21,8 +21,8 @@ const customStyles = {
     },
 };
 
-const AddFriendModal = (
-    { isOpen, contentLabel, closeModal }: AddFriendModalProps
+const SelectRecipientModal = (
+    { isOpen, contentLabel, closeModal }: SelectRecipientModalProps
 ) => {
 
     const { register, getValues, handleSubmit, formState: { errors }, setError, reset } = useForm();
@@ -51,7 +51,7 @@ const AddFriendModal = (
                 style={customStyles}
             >
                 <div className='font-black justify-between items-center text-lg flex'>
-                    <h2>Add Friend</h2>
+                    <h2>Send to</h2>
                     <SquareHoverButton
                         onClick={() => handleClose()}
                         icon={CloseIcon}
@@ -72,7 +72,7 @@ const AddFriendModal = (
                     />
 
                     <button className='hover:drop-shadow-xl rounded-xl text-white bg-violet-700 p-4'>
-                        Add
+                        Select
                     </button>
                 </form>
             </Modal>
@@ -80,4 +80,4 @@ const AddFriendModal = (
     )
 }
 
-export default AddFriendModal
+export default SelectRecipientModal
