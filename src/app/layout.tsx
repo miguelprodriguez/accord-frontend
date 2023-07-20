@@ -1,5 +1,5 @@
 import './globals.css'
-import { GlobalChatProvider } from './context/store'
+import { UserContextProvider } from './context/userStore'
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,9 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <GlobalChatProvider>
+        <UserContextProvider>
           {children}
-        </GlobalChatProvider>
+        </UserContextProvider>
       </body>
     </html>
   )

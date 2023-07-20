@@ -1,6 +1,5 @@
 "use client"
 
-import messagesData from '@/data/messagesData'
 import React, { useEffect, useState } from 'react'
 import newMessageIcon from '/public/new-message.svg'
 import chevronLeftIcon from '/public/chevron-left.svg'
@@ -39,8 +38,6 @@ export default function Sidebar() {
     }
     getChatsList()
   }, [])
-
-  console.log("Chats list: ", chatsList)
 
   return (
     <div className={`flex flex-col border-2 border-r-gray-900 h-full p-2 overflow-y-scroll`}>
