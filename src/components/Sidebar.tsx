@@ -7,13 +7,14 @@ import useIsMobile from '@/hooks/useIsMobile'
 import SidebarItem from './SidebarItem'
 import SquareHoverButton from './SquareHoverButton'
 import SelectRecipientModal from './SelectRecipientModal'
-import axios from 'axios'
 import CircleImage from './CircleImage'
 import { useUserContext } from '@/app/context/userStore'
+import getChatsList from '@/axios/chats/getChatsList'
 
 export default function Sidebar() {
 
   const { currentUser } = useUserContext()
+
   const [chatsList, setChatsList] = useState([])
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -29,16 +30,7 @@ export default function Sidebar() {
   }, [isMobile])
 
   useEffect(() => {
-    const getChatsList = async () => {
-      try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/chats`
-        const response = await axios.get(url, { withCredentials: true })
-        setChatsList(response.data)
-      } catch (error) {
-        console.log("Error: ", error)
-      }
-    }
-    getChatsList()
+    getChatsList(setChatsList)
   }, [])
 
   return (

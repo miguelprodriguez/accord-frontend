@@ -1,5 +1,6 @@
 import './globals.css'
 import { UserContextProvider } from './context/userStore'
+import { ReceiverProvider } from './context/chatStore'
 
 export const metadata = {
   title: 'Create Next App',
@@ -15,7 +16,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <UserContextProvider>
-          {children}
+          <ReceiverProvider>
+            {children}
+          </ReceiverProvider>
         </UserContextProvider>
       </body>
     </html>

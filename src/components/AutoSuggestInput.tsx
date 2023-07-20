@@ -1,26 +1,23 @@
-import axios from 'axios';
+import { useReceiverContext } from '@/app/context/chatStore';
+import { useUserContext } from '@/app/context/userStore';
+import createChat from '@/axios/chats/createChat';
+import fetchSuggestions from '@/axios/users/fetchSuggestions';
 import React, { useEffect, useState } from 'react'
 
-const AutoSuggestInput = () => {
+const AutoSuggestInput = (
+    { closeModal }: any
+) => {
     const [inputValue, setInputValue] = useState('')
     const [suggestions, setSuggestions] = useState<any[]>([])
 
-    useEffect(() => {
-        const fetchSuggestions = async () => {
-            try {
-                const queryLink = `${process.env.NEXT_PUBLIC_API_URL}/api/users?username=${inputValue}`
-                const response = await axios.get(queryLink, { withCredentials: true });
+    const { currentUser } = useUserContext()
+    const { currentReceiver, setCurrentReceiver } = useReceiverContext()
 
-                const suggestionsData = response.data;
-                setSuggestions(suggestionsData);
-            } catch (error) {
-                console.error('Error fetching suggestions:', error);
-            }
-        };
+    useEffect(() => {
 
         const debounceTimeout = setTimeout(() => {
             if (!inputValue) return setSuggestions([])
-            fetchSuggestions();
+            fetchSuggestions({ inputValue, setSuggestions });
         }, 300);
 
         // Clear debounce
@@ -30,6 +27,16 @@ const AutoSuggestInput = () => {
     const handleInputChange = (event: any) => {
         setInputValue(event.target.value);
     };
+
+
+    const handleSelect = (user: any) => {
+        closeModal()
+        setCurrentReceiver(user)
+    }
+
+    useEffect(() => {
+        createChat(currentUser?.userId, currentReceiver?.userId)
+    }, [currentReceiver])
 
     return (
         <div className='my-2'>
@@ -46,8 +53,13 @@ const AutoSuggestInput = () => {
                 suggestions.length > 0 &&
                 <ul className='mt-4 rounded-lg border-slate-500'>
                     {suggestions.map((suggestion, index) => {
-                        return <li className='hover:bg-violet-700 hover:text-white p-2 w-full rounded-lg' key={index}>
-                            {suggestion?.username}
+                        return <li key={index}>
+                            <button
+                                className='hover:bg-violet-700 hover:text-white p-2 w-full rounded-lg'
+                                onClick={() => handleSelect(suggestion)}
+                            >
+                                {suggestion?.username}
+                            </button>
                         </li>
                     })}
                 </ul>

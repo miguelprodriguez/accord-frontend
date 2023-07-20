@@ -39,7 +39,7 @@ const SelectRecipientModal = (
                         buttonClassName='ml-auto block'
                     />
                 </div>
-                <AutoSuggestInput />
+                <AutoSuggestInput closeModal={closeModal} />
             </Modal>
         </>
     )
