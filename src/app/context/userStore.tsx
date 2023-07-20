@@ -4,7 +4,8 @@ import { createContext, useState, useContext } from 'react';
 
 type User = {
     username: string,
-    userId: string
+    userId: string,
+    image: string
 }
 
 interface UserContextProps {
@@ -19,6 +20,7 @@ const UserContext = createContext<UserContextProps>({
 
 export function UserContextProvider({ children }: any) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    console.log("Current user: ", currentUser)
 
     return (
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>

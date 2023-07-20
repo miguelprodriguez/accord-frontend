@@ -8,9 +8,12 @@ import SidebarItem from './SidebarItem'
 import SquareHoverButton from './SquareHoverButton'
 import SelectRecipientModal from './SelectRecipientModal'
 import axios from 'axios'
+import CircleImage from './CircleImage'
+import { useUserContext } from '@/app/context/userStore'
 
 export default function Sidebar() {
 
+  const { currentUser } = useUserContext()
   const [chatsList, setChatsList] = useState([])
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -30,7 +33,6 @@ export default function Sidebar() {
       try {
         const url = `${process.env.NEXT_PUBLIC_API_URL}/api/chats`
         const response = await axios.get(url, { withCredentials: true })
-        console.log("Response: ", response.data)
         setChatsList(response.data)
       } catch (error) {
         console.log("Error: ", error)
@@ -42,6 +44,7 @@ export default function Sidebar() {
   return (
     <div className={`flex flex-col border-2 border-r-gray-900 h-full p-2 overflow-y-scroll`}>
       <div className="p-2 flex gap-2 justify-between items-center">
+        <CircleImage src={currentUser?.image!} alt='You' />
         <h1 className='font-black text-lg'>Chats</h1>
         <div className="flex gap-2">
           <SquareHoverButton

@@ -1,9 +1,9 @@
 import truncateText from '@/helpers/truncateText'
 import { SidebarItemProps } from '@/types/SidebarItemProps'
-import Image from 'next/image'
 import React from 'react'
 import OnlineStatus from './OnlineStatus'
 import { useUserContext } from '@/app/context/userStore'
+import CircleImage from './CircleImage'
 
 const MESSAGE_LIMIT_PREVIEW = 27
 
@@ -15,7 +15,9 @@ export default function SidebarItem({
 
     const { currentUser } = useUserContext()
 
-    const chatMate = chat.participants.find((participant: any) => participant.userId !== currentUser?.userId)
+    const chatMate = chat.participants.find((participant: any) => {
+        return participant.userId !== currentUser?.userId
+    })
 
     const handleLastSender = () => {
         if (chat.lastMessage.sender.username === currentUser?.username) return 'You'
@@ -30,15 +32,9 @@ export default function SidebarItem({
                 hover:bg-slate-200 rounded-xl
             `}
         >
-            <div className="w-12 h-12 relative">
-                <Image
-                    src={chatMate.image}
-                    alt={chatMate.username}
-                    fill
-                    className='object-cover rounded-[50%]'
-                />
-                {/* <OnlineStatus isOnline={data.isOnline} /> */}
-            </div>
+            {/* <OnlineStatus isOnline={data.isOnline} /> */}
+            <CircleImage src={chatMate.image} alt={chatMate.username}
+            />
             {isSidebarCollapsed &&
                 <div className='text-left'>
                     <h2 className='font-bold'>{chatMate.username}</h2>
