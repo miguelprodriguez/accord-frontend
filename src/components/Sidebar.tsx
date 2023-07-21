@@ -37,7 +37,12 @@ export default function Sidebar() {
     <div className={`flex flex-col border-2 border-r-gray-900 h-full p-2 overflow-y-scroll`}>
       <div className="p-2 flex gap-2 justify-between items-center">
         <CircleImage src={currentUser?.image!} alt='You' />
-        <h1 className='font-black text-lg'>Chats</h1>
+        {
+          isSidebarCollapsed &&
+          <>
+            <h1 className='font-black text-lg'>Chats</h1>
+          </>
+        }
         <div className="flex gap-2">
           <SquareHoverButton
             onClick={openModal}
@@ -56,8 +61,9 @@ export default function Sidebar() {
         isOpen={isModalOpen}
         contentLabel="Example Modal"
         closeModal={closeModal}
+        setChatsList={setChatsList}
       />
-      {chatsList.map((chat, index) => {
+      {chatsList?.map((chat, index) => {
         return (
           <SidebarItem
             key={index}

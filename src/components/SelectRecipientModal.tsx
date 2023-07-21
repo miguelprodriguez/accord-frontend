@@ -12,7 +12,7 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        width: '20%',
+        width: '50vw',
         overflow: 'none',
         transform: 'translate(-50%, -50%)',
         borderRadius: '8px'
@@ -20,7 +20,7 @@ const customStyles = {
 };
 
 const SelectRecipientModal = (
-    { isOpen, contentLabel, closeModal }: SelectRecipientModalProps
+    { isOpen, contentLabel, closeModal, setChatsList }: SelectRecipientModalProps
 ) => {
     return (
         <>
@@ -39,7 +39,7 @@ const SelectRecipientModal = (
                         buttonClassName='ml-auto block'
                     />
                 </div>
-                <AutoSuggestInput closeModal={closeModal} />
+                <AutoSuggestInput closeModal={closeModal} setChatsList={setChatsList} />
             </Modal>
         </>
     )

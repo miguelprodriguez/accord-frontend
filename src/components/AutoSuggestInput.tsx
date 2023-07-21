@@ -5,7 +5,7 @@ import fetchSuggestions from '@/axios/users/fetchSuggestions';
 import React, { useEffect, useState } from 'react'
 
 const AutoSuggestInput = (
-    { closeModal }: any
+    { closeModal, setChatsList }: any
 ) => {
     const [inputValue, setInputValue] = useState('')
     const [suggestions, setSuggestions] = useState<any[]>([])
@@ -14,13 +14,11 @@ const AutoSuggestInput = (
     const { currentReceiver, setCurrentReceiver } = useReceiverContext()
 
     useEffect(() => {
-
         const debounceTimeout = setTimeout(() => {
             if (!inputValue) return setSuggestions([])
             fetchSuggestions({ inputValue, setSuggestions });
         }, 300);
 
-        // Clear debounce
         return () => clearTimeout(debounceTimeout);
     }, [inputValue]);
 
@@ -28,14 +26,17 @@ const AutoSuggestInput = (
         setInputValue(event.target.value);
     };
 
-
     const handleSelect = (user: any) => {
         closeModal()
         setCurrentReceiver(user)
     }
 
     useEffect(() => {
-        createChat(currentUser?.userId, currentReceiver?.userId)
+        if (currentReceiver) createChat({
+            senderId: currentUser?.userId,
+            recipientId: currentReceiver?.userId,
+            setChatsList: setChatsList
+        })
     }, [currentReceiver])
 
     return (
