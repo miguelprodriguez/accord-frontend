@@ -10,12 +10,14 @@ import SelectRecipientModal from './SelectRecipientModal'
 import CircleImage from './CircleImage'
 import { useUserContext } from '@/app/context/userStore'
 import getChatsList from '@/axios/chats/getChatsList'
+import { useActiveChatIndexContext } from '@/app/context/activeChatIndexStore'
 
 export default function Sidebar() {
 
   const { currentUser } = useUserContext()
+  const { setActiveChatIndex } = useActiveChatIndexContext()
 
-  const [chatsList, setChatsList] = useState([])
+  const [chatsList, setChatsList] = useState<any>([])
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -24,15 +26,17 @@ export default function Sidebar() {
   const closeModal = () => setIsModalOpen(false)
 
   const isMobile = useIsMobile()
-
   useEffect(() => {
     if (isMobile) return setIsSidebarCollapsed(false)
     setIsSidebarCollapsed(true)
   }, [isMobile])
 
+  useEffect(() => { getChatsList(setChatsList) }, [])
+
   useEffect(() => {
-    getChatsList(setChatsList)
-  }, [])
+    const maketopChatActive = () => setActiveChatIndex(chatsList[0]?.id)
+    if (chatsList.length > 0) maketopChatActive()
+  }, [chatsList])
 
   return (
     <div className={`flex flex-col border-2 border-r-gray-900 h-full p-2 overflow-y-scroll`}>

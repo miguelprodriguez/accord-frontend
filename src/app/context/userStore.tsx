@@ -20,7 +20,6 @@ const UserContext = createContext<UserContextProps>({
 
 export function UserContextProvider({ children }: any) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
-    console.log("Current user: ", currentUser)
 
     return (
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>
