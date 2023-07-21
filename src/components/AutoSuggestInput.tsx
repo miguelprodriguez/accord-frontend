@@ -1,4 +1,4 @@
-import { useReceiverContext } from '@/app/context/chatStore';
+import { useReceiverContext } from '@/app/context/receiverStore';
 import { useUserContext } from '@/app/context/userStore';
 import createChat from '@/axios/chats/createChat';
 import fetchSuggestions from '@/axios/users/fetchSuggestions';
@@ -46,7 +46,7 @@ const AutoSuggestInput = (
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
-                    placeholder="Enter your search query..."
+                    placeholder="Enter your friend's username"
                     className='outline-none w-full'
                 />
             </div>

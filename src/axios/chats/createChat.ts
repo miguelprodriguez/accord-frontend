@@ -9,7 +9,7 @@ const createChat = async (
         const response = await axios.post(url, data, { withCredentials: true })
         console.log("respnse: ", response)
         if (!response.data.isExisting) setChatsList(response.data.allUserChats)
-        // Make chat list refresh upon receiving above response
+        // Make corresponding chat active if it already exists
     } catch (error) {
         console.log("Error: ", error)
     }

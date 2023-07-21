@@ -4,7 +4,8 @@ import React from 'react'
 import OnlineStatus from './OnlineStatus'
 import { useUserContext } from '@/app/context/userStore'
 import CircleImage from './CircleImage'
-import { useReceiverContext } from '@/app/context/chatStore'
+import { useReceiverContext } from '@/app/context/receiverStore'
+import { useActiveChatIndexContext } from '@/app/context/activeChatIndexStore'
 
 const MESSAGE_LIMIT_PREVIEW = 27
 
@@ -15,6 +16,7 @@ export default function SidebarItem({
 }: SidebarItemProps) {
 
     const { currentUser } = useUserContext()
+    const { activeChatIndex, setActiveChatIndex } = useActiveChatIndexContext()
     const { setCurrentReceiver } = useReceiverContext()
 
     const chatMate = chat.participants.find((participant: any) => {
@@ -26,14 +28,20 @@ export default function SidebarItem({
         return chat.lastMessage?.sender.username
     }
 
+    const handleClick = (chatMate: any, index: number) => {
+        setCurrentReceiver(chatMate)
+        setActiveChatIndex(index)
+    }
+
     return (
         <button
             key={index}
             className={`
                 flex items-center gap-5 p-2.5
+                ${activeChatIndex === index ? 'bg-slate-200 ' : ''}
                 hover:bg-slate-200 rounded-xl
             `}
-            onClick={() => setCurrentReceiver(chatMate)}
+            onClick={() => handleClick(chatMate, index)}
         >
             {/* <OnlineStatus isOnline={data.isOnline} /> */}
             <CircleImage src={chatMate.image} alt={chatMate.username}

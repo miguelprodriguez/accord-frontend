@@ -24,6 +24,7 @@ export default function Sidebar() {
   const closeModal = () => setIsModalOpen(false)
 
   const isMobile = useIsMobile()
+
   useEffect(() => {
     if (isMobile) return setIsSidebarCollapsed(false)
     setIsSidebarCollapsed(true)
