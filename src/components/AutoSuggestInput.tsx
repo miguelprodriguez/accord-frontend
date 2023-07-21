@@ -1,3 +1,4 @@
+import { useActiveChatIndexContext } from '@/app/context/activeChatIndexStore';
 import { useReceiverContext } from '@/app/context/receiverStore';
 import { useUserContext } from '@/app/context/userStore';
 import createChat from '@/axios/chats/createChat';
@@ -7,11 +8,13 @@ import React, { useEffect, useState } from 'react'
 const AutoSuggestInput = (
     { closeModal, setChatsList }: any
 ) => {
+
     const [inputValue, setInputValue] = useState('')
     const [suggestions, setSuggestions] = useState<any[]>([])
 
     const { currentUser } = useUserContext()
     const { currentReceiver, setCurrentReceiver } = useReceiverContext()
+    const { setActiveChatIndex } = useActiveChatIndexContext()
 
     useEffect(() => {
         const debounceTimeout = setTimeout(() => {
@@ -35,7 +38,8 @@ const AutoSuggestInput = (
         if (currentReceiver) createChat({
             senderId: currentUser?.userId,
             recipientId: currentReceiver?.userId,
-            setChatsList: setChatsList
+            setChatsList: setChatsList,
+            setActiveChatIndex: setActiveChatIndex
         })
     }, [currentReceiver])
 
