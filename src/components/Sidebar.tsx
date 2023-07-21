@@ -64,11 +64,11 @@ export default function Sidebar() {
         closeModal={closeModal}
         setChatsList={setChatsList}
       />
-      {chatsList?.map((chat, index) => {
+      {chatsList?.map((chat: any, index: number) => {
         return (
           <SidebarItem
             key={index}
-            index={index}
+            id={chat.id}
             chat={chat}
             isSidebarCollapsed={isSidebarCollapsed}
           />

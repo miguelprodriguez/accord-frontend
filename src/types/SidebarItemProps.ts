@@ -1,5 +1,5 @@
 export interface SidebarItemProps {
-    index: any,
+    id: any,
     chat: any,
     isSidebarCollapsed: boolean
 }

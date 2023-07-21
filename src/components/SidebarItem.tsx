@@ -10,7 +10,7 @@ import { useActiveChatIndexContext } from '@/app/context/activeChatIndexStore'
 const MESSAGE_LIMIT_PREVIEW = 27
 
 export default function SidebarItem({
-    index,
+    id,
     chat,
     isSidebarCollapsed
 }: SidebarItemProps) {
@@ -35,13 +35,12 @@ export default function SidebarItem({
 
     return (
         <button
-            key={index}
             className={`
                 flex items-center gap-5 p-2.5
-                ${activeChatIndex === index ? 'bg-slate-200 ' : ''}
+                ${activeChatIndex === id ? 'bg-slate-200 ' : ''}
                 hover:bg-slate-200 rounded-xl
             `}
-            onClick={() => handleClick(chatMate, index)}
+            onClick={() => handleClick(chatMate, chat.id)}
         >
             {/* <OnlineStatus isOnline={data.isOnline} /> */}
             <CircleImage src={chatMate.image} alt={chatMate.username}
