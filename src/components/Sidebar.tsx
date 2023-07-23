@@ -12,7 +12,7 @@ import { useUserContext } from '@/app/context/userStore'
 import getChatsList from '@/axios/chats/getChatsList'
 import { useActiveChatIndexContext } from '@/app/context/activeChatIndexStore'
 
-export default function Sidebar() {
+export default function Sidebar({ onlineUsers }: any) {
 
   const { currentUser } = useUserContext()
   const { setActiveChatIndex } = useActiveChatIndexContext()
@@ -41,7 +41,11 @@ export default function Sidebar() {
   return (
     <div className={`flex flex-col border-2 border-r-gray-900 h-full p-2 overflow-y-scroll`}>
       <div className="p-2 flex gap-2 justify-between items-center">
-        <CircleImage src={currentUser?.image!} alt='You' />
+        <CircleImage
+          src={currentUser?.image!}
+          isOnline={onlineUsers?.includes(currentUser?.userId)}
+          alt='You'
+        />
         {
           isSidebarCollapsed &&
           <>
@@ -75,6 +79,7 @@ export default function Sidebar() {
             id={chat.id}
             chat={chat}
             isSidebarCollapsed={isSidebarCollapsed}
+            onlineUsers={onlineUsers}
           />
         )
       })}

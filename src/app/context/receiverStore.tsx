@@ -20,7 +20,6 @@ const ReceiverContext = createContext<UserContextProps>({
 
 export function ReceiverProvider({ children }: any) {
     const [currentReceiver, setCurrentReceiver] = useState<User | null>(null);
-    console.log("Current currentReceiver: ", currentReceiver)
 
     return (
         <ReceiverContext.Provider value={{ currentReceiver, setCurrentReceiver }}>

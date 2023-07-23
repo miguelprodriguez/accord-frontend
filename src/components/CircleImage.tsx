@@ -1,13 +1,15 @@
 import Image from 'next/image'
 import React from 'react'
+import OnlineStatus from './OnlineStatus'
 
 interface CircleImageProps {
     src: string,
-    alt: string
+    alt: string,
+    isOnline: boolean
 }
 
 function CircleImage(
-    { src, alt }: CircleImageProps
+    { src, alt, isOnline }: CircleImageProps
 ) {
     return (
         <div className="w-12 h-12 relative">
@@ -17,7 +19,7 @@ function CircleImage(
                 fill
                 className='object-cover rounded-[50%]'
             />
-            {/* <OnlineStatus isOnline={data.isOnline} /> */}
+            <OnlineStatus isOnline={isOnline} />
         </div>
     )
 }

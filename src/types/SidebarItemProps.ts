@@ -1,5 +1,6 @@
 export interface SidebarItemProps {
     id: any,
     chat: any,
-    isSidebarCollapsed: boolean
+    isSidebarCollapsed: boolean,
+    onlineUsers: string[]
 }

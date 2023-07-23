@@ -12,7 +12,8 @@ const MESSAGE_LIMIT_PREVIEW = 27
 export default function SidebarItem({
     id,
     chat,
-    isSidebarCollapsed
+    isSidebarCollapsed,
+    onlineUsers
 }: SidebarItemProps) {
 
     const { currentUser } = useUserContext()
@@ -37,13 +38,15 @@ export default function SidebarItem({
         <button
             className={`
                 flex items-center gap-5 p-2.5
-                ${activeChatIndex === id ? 'bg-slate-200 ' : ''}
-                hover:bg-slate-200 rounded-xl
+                ${activeChatIndex === id ? 'bg-slate-200 ' : 'bg-white'}
+                hover:bg-slate-200 rounded-xl relative
             `}
             onClick={() => handleClick(chatMate, chat.id)}
         >
-            {/* <OnlineStatus isOnline={data.isOnline} /> */}
-            <CircleImage src={chatMate.image} alt={chatMate.username}
+            <CircleImage
+                src={chatMate.image}
+                alt={chatMate.username}
+                isOnline={onlineUsers?.includes(chatMate?.userId)}
             />
             {isSidebarCollapsed &&
                 <div className='text-left'>

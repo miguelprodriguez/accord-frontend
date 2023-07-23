@@ -8,7 +8,7 @@ function OnlineStatus(
         <div
             className={`
                 absolute right-0 bottom-0 h-2 w-2 rounded-full
-                bg-${isOnline ? 'green' : 'red'}-600 
+                ${isOnline ? 'bg-green-600' : 'bg-red-600'}
             `}
         >
         </div>
