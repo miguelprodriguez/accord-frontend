@@ -39,7 +39,7 @@ export default function Sidebar({ onlineUsers }: any) {
   }, [chatsList])
 
   return (
-    <div className={`flex flex-col border-2 border-r-gray-900 h-full p-2 overflow-y-scroll`}>
+    <div className={`flex flex-col border-2 border-r-gray-900 h-full p-2 overflow-y-scroll w-96`}>
       <div className="p-2 flex gap-2 justify-between items-center">
         <CircleImage
           src={currentUser?.image!}
