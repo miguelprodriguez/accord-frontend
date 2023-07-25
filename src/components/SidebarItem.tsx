@@ -1,7 +1,6 @@
 import truncateText from '@/helpers/truncateText'
 import { SidebarItemProps } from '@/types/SidebarItemProps'
 import React from 'react'
-import OnlineStatus from './OnlineStatus'
 import { useUserContext } from '@/app/context/userStore'
 import CircleImage from './CircleImage'
 import { useReceiverContext } from '@/app/context/receiverStore'
@@ -47,6 +46,7 @@ export default function SidebarItem({
                 src={chatMate.image}
                 alt={chatMate.username}
                 isOnline={onlineUsers?.includes(chatMate?.userId)}
+                isOnlineStatusShown={true}
             />
             {isSidebarCollapsed &&
                 <div className='text-left'>

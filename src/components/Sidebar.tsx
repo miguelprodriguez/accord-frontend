@@ -11,10 +11,12 @@ import CircleImage from './CircleImage'
 import { useUserContext } from '@/app/context/userStore'
 import getChatsList from '@/axios/chats/getChatsList'
 import { useActiveChatIndexContext } from '@/app/context/activeChatIndexStore'
+import { useReceiverContext } from '@/app/context/receiverStore'
 
 export default function Sidebar({ onlineUsers }: any) {
 
   const { currentUser } = useUserContext()
+  const { setCurrentReceiver } = useReceiverContext()
   const { setActiveChatIndex } = useActiveChatIndexContext()
 
   const [chatsList, setChatsList] = useState<any>([])
@@ -35,7 +37,12 @@ export default function Sidebar({ onlineUsers }: any) {
 
   useEffect(() => {
     const maketopChatActive = () => setActiveChatIndex(chatsList[0]?.id)
-    if (chatsList.length > 0) maketopChatActive()
+    if (chatsList.length < 1) return
+    maketopChatActive()
+    const chatMate = chatsList[0].participants.find((participant: any) => {
+      return participant.userId !== currentUser?.userId
+    })
+    setCurrentReceiver(chatMate)
   }, [chatsList])
 
   return (
@@ -48,6 +55,7 @@ export default function Sidebar({ onlineUsers }: any) {
           src={currentUser?.image!}
           isOnline={onlineUsers?.includes(currentUser?.userId)}
           alt='You'
+          isOnlineStatusShown={true}
         />
         {
           isSidebarCollapsed &&
@@ -65,7 +73,9 @@ export default function Sidebar({ onlineUsers }: any) {
             onClick={toggleSidebar}
             icon={chevronLeftIcon}
             alt='Toggle sidebar to left'
-            iconClassName={`transition duration-300 ease-in-out ${isSidebarCollapsed ? 'rotate-0' : 'rotate-180'}`}
+            iconClassName={`transition duration-300 ease-in-out 
+              ${isSidebarCollapsed ? 'rotate-0' : 'rotate-180'}
+            `}
           />
         </div>
       </div>

@@ -1,12 +1,15 @@
+import { useReceiverContext } from '@/app/context/receiverStore';
 import { useUserContext } from '@/app/context/userStore'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import CircleImage from './CircleImage';
 
 function Chat() {
-
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState<string>('')
-  const [chats, setChats] = useState<any>([])
+  const [messages, setMessages] = useState<any>([])
 
   const { currentUser } = useUserContext()
+  const { currentReceiver } = useReceiverContext()
 
   const handleEnterButton = (event: any) => {
     if (event.key !== 'Enter') return
@@ -21,14 +24,58 @@ function Chat() {
 
   const handleSend = () => {
     if (inputValue === '') return
-    setChats((chats: any) => [...chats, inputValue])
+    setMessages((chats: any) => [...chats, { sender: currentUser?.username, message: inputValue }])
     setInputValue('')
   }
 
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (!messagesEndRef.current) return
+      const { scrollHeight, clientHeight } = messagesEndRef.current;
+      messagesEndRef.current.scrollTop = scrollHeight - clientHeight;
+    }
+
+    scrollToBottom()
+  }, [messages]);
+
   return (
-    <div className='flex flex-col w-full p-4'>
-      <div className='flex-1'>Chats</div>
-      <div className='flex gap-2'>
+    <div className='flex flex-col w-full'>
+      <div className="flex p-4 gap-2 items-center border-b-2 border-slate-100">
+        <CircleImage
+          src={currentReceiver?.image}
+          alt={'Receiver of message'}
+          isOnline={false}
+          isOnlineStatusShown={false}
+        />
+        <h2 className='font-bold'>{currentReceiver?.username}</h2>
+      </div>
+      <div className="overflow-auto flex-1" ref={messagesEndRef}>
+        <div className="flex flex-col m-4 gap-2">
+          {messages.map((chat: any, index: number) => {
+            return (
+              <div className={`
+                ${messages[messages.length - 1].sender === currentUser?.username
+                  ? 'ml-auto'
+                  : 'mr-auto'
+                }
+                flex gap-2 items-center`}
+                key={index}
+              >
+                <div className='p-4 rounded-full bg-violet-700 inline-block'>
+                  <p className='text-white'>{chat.message}</p>
+                </div>
+                <CircleImage
+                  src={currentUser?.image}
+                  alt={'Sender of message'}
+                  isOnline={false}
+                  isOnlineStatusShown={false}
+                />
+              </div>
+            )
+          })}
+        </div >
+      </div>
+      <div className='flex gap-2 p-4'>
         <input
           value={inputValue}
           onChange={event => handleInputChange(event)}

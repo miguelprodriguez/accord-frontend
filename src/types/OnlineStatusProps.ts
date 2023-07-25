@@ -1,3 +1,3 @@
 export interface OnlineStatusProps {
-    isOnline: boolean
+    isOnline: boolean | undefined
 }
