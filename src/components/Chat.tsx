@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 function Chat() {
 
-  const [inputValue, setInputValue] = useState<string>()
+  const [inputValue, setInputValue] = useState<string>('')
   const [chats, setChats] = useState<any>([])
 
   const { currentUser } = useUserContext()
